@@ -1,0 +1,17 @@
+.floatingBar{
+    position: absolute;
+    top: 10px;
+    right: -100px;
+    z-index: 3;
+    border-radius: 50px 0 0 50px;
+    padding: 0px 15px;
+    transition: right 0.8s;
+
+    &:hover{
+        right: -2px;
+    }
+
+    #text{
+        font-size: 15px;
+    }
+}
