@@ -1,11 +1,13 @@
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../Sidebar/';
 import FloatingBar from '../FloatingBar/FloatingBar';
+import YouTubeEmbed from '../YouTubeEmbed'
 import './index.scss'
 
 const Layout = () => {
   return (
     <div className="App">
+      <YouTubeEmbed />
       <Sidebar />
       <FloatingBar />
       <div className="page">
