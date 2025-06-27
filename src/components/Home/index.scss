@@ -4,7 +4,7 @@
     left: 10%;
     top: 50%;
     transform: translateY(-50%);
-    width: 40%;
+    width: 100%;
     max-height: 90%;
   }
 
@@ -49,9 +49,9 @@
   h2 {
     margin-top: 20px;
     font-weight: 400;
-    font-size: 11px;
-    font-family: sans-serif;
-    letter-spacing: 3px;
+    font-size: 14px;
+    font-family: monospace;
+    letter-spacing: 1px;
     animation: fadeIn 1s 1.8s backwards;
   }
 

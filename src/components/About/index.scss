@@ -8,6 +8,13 @@
   right: 0;
   overflow: hidden;
 }
+.text-zone {
+  p {
+    b {
+      font-weight: 700;
+    }
+  }
+}
 
 .cubespinner {
   animation-name: spincube;
@@ -22,14 +29,14 @@
     position: absolute;
     width: 200px;
     height: 200px;
-    border: 1px solid #ccc;
-    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid #07aa2a;
+    background: rgba(0, 255, 55, 0.4);
     text-align: center;
     font-size: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 20px 0px lightyellow;
+    box-shadow: 0 0 20px 0px rgb(47 240 17 / 39%);
   }
 
   .face1 {

@@ -1,4 +1,6 @@
 :root {
+  --design_Text_white: #fff;
+  --design_Button_Text_black: #f0f0f0;
   --background_color:rgba(255, 255, 255, 0.998);
   --text_color: rgba(0, 0, 0, 0.95);
   --design_Text: #115173;
@@ -6,9 +8,12 @@
   --paragraph_Text: #888888;
 }
 [data-theme="dark"] {
-  --background_color:rgba(0, 0, 0, 0.95);
+  --design_Button_Text_black: #000;
+  --background_color:#1c1c1c;
+  --background_color_second:#131313;
   --text_color: rgba(255, 255, 255, 0.998);
   --design_Text: #16fc38;
+  --design_Text_secondary: #9ffdad;
   --animation_Text: #16fc38;
   --paragraph_Text: #888888;
 }
@@ -23,7 +28,7 @@ body {
   color: var(--text_color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--background_color);
+  background: var(--background_color_second);
   overflow: hidden;
   display: block;
 }
@@ -40,11 +45,11 @@ h2 {
   color: var(--text_color);
 }
 .flat-button {
-  color: var(--design_Text);
+  color: var(--design_Button_Text_black);
+  background-color: var(--design_Text);
   border: var(--design_Text);
 }
 .flat-button:hover {
-  background-color: var(--design_Text);
   color: var(--background_color);
 }
 .tags {
@@ -74,7 +79,9 @@ input[type='email'] {
   background: var(--text_color);
   color: var(--background_color);
 }
-
+.greenTxt{
+  color:var(--design_Text)
+}
 textarea {
   background: var(--text_color);
   color: var(--background_color);
@@ -103,7 +110,7 @@ textarea {
 .image-box:after {
   background: linear-gradient(180deg, var(--design_Text), #000);
 }
-.nav-bar nav a:hover{
+.nav-bar nav a:hover svg{
   color: var(--design_Text);
 }
 .nav-bar nav a.active svg{

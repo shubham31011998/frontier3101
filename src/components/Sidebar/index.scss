@@ -45,13 +45,13 @@
 
       &:hover {
 
-        svg {
-          opacity: 0;
-        }
+        // svg {
+        //   opacity: 0;
+        // }
 
-        &:after {
-          opacity: 1;
-        }
+        // &:after {
+        //   opacity: 1;
+        // }
       }
 
       &:after {
@@ -66,35 +66,6 @@
         opacity: 0;
         -webkit-transition: all 0.3s ease-out;
         transition: all 0.3s ease-out;
-      }
-
-      &:first-child {
-        &:after {
-          content: 'HOME';
-        }
-      }
-    }
-
-    a.about-link {
-      &:after {
-        content: 'ABOUT';
-      }
-    }
-
-    a.contact-link {
-      &:after {
-        content: 'CONTACT';
-      }
-    }
-
-    a.portfolio-link {
-      &:after {
-        content: 'PROJECTS';
-      }
-    }
-
-    a.active {
-      svg {
       }
     }
   }

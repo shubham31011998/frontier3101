@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom'
 import Loader from 'react-loaders'
 import AnimatedLetters from '../AnimatedLetters'
 import LogoTitle from '../../assets/images/logo-s.png'
-import Logo from './Logo'
 import './index.scss'
 
 const Home = () => {
   const [letterClass, setLetterClass] = useState('text-animate')
 
-  const nameArray = ['h', 'u', 'b', 'h', 'a', 'm',]
+  const nameArray = ['h', 'u', 'b', 'h', 'a', 'm',' ','Y','a','d','u','v','a','n','s','h','i']
   const jobArray = [
     'w',
     'e',
@@ -59,12 +58,24 @@ const Home = () => {
               idx={22}
             />
           </h1>
-          <h2>Front End Developer / Web designer / Graphics Designer</h2>
+          <h2>A Frontend Developer who crafts beautiful, interactive, and performance-driven websites using <b>React</b>, <b>JavaScript</b>, <b>CSS</b>, and more.</h2>
+          <ul>
+            <li>
+              <h2>🔧 5+ years of hands-on experience</h2>  
+            </li>
+            <li>
+              <h2>🎮 Gamer at heart — Checkout my [<a className="greenTxt" href='https://www.youtube.com/@rtxengineer' target='_blank'>YouTube Channel</a>]</h2>  
+            </li>
+            <li>
+              <h2>🎯 Always learning — exploring the newest web dev trends and tech</h2>  
+            </li>
+          </ul>
+            
           <Link to="/contact" className="flat-button">
             CONTACT ME
           </Link>
         </div>
-        <Logo />
+        {/* <Logo /> */}
       </div>
 
       <Loader type="pacman" />
