@@ -16,7 +16,7 @@ const Switch = () => {
                 setLight();
             }
         }else{
-            if(currentTheme == "dark"){
+            if(currentTheme === "dark"){
                 setDark();
             }
             else{
