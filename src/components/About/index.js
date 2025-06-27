@@ -36,7 +36,7 @@ const About = () => {
             Passionate Frontend Developer, Designer & Tech Explorer I'm Shubham, a frontend web developer with 5+ years of experience building engaging user interfaces using <b>React.js</b>, <b>JavaScript</b>, <b>HTML</b>, and <b>CSS</b>. I combine clean code with creative design to build user-friendly, responsive, and scalable websites and apps.
           </p>
           <p align="LEFT">
-            With hands-on experience in <b>React Native</b>, <b>Figma</b>, <b>Photoshop</b>, and <b>CSS animations</b>, I bring ideas to life — pixel by pixel.<br></br>I also run a gaming YouTube channel, [<a className="greenTxt" href='https://www.youtube.com/@rtxengineer' target='_blank'>RTX Engineer (Gaming Channel)</a>], where I share gameplay, tech insights, and more.
+            With hands-on experience in <b>React Native</b>, <b>Figma</b>, <b>Photoshop</b>, and <b>CSS animations</b>, I bring ideas to life — pixel by pixel.<br></br>I also run a gaming YouTube channel, [<a className="greenTxt" href='https://www.youtube.com/@rtxengineer' rel="noreferrer" target='_blank'>RTX Engineer (Gaming Channel)</a>], where I share gameplay, tech insights, and more.
           </p>
           <p>
             When I'm not coding or gaming, I’m usually exploring new tools, frameworks, and development tricks to stay sharp and ahead of the curve.

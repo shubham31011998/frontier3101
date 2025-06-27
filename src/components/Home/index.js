@@ -64,7 +64,7 @@ const Home = () => {
               <h2>🔧 5+ years of hands-on experience</h2>  
             </li>
             <li>
-              <h2>🎮 Gamer at heart — Checkout my [<a className="greenTxt" href='https://www.youtube.com/@rtxengineer' target='_blank'>YouTube Channel</a>]</h2>  
+              <h2>🎮 Gamer at heart — Checkout my [<a className="greenTxt" rel="noreferrer" href='https://www.youtube.com/@rtxengineer' target='_blank'>YouTube Channel</a>]</h2>  
             </li>
             <li>
               <h2>🎯 Always learning — exploring the newest web dev trends and tech</h2>  
