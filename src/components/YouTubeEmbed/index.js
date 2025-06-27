@@ -1,7 +1,5 @@
 const YouTubeEmbed = () => (
   <section className="my-12 text-center">
-    <h2 className="text-2xl font-bold mb-4">🎮 My YouTube Channel</h2>
-    <p className="mb-4">Outside of frontend dev, I love sharing gaming and tech content. Here's a recent upload:</p>
 
     <div className="flex justify-center video-container">
       <iframe width="560"
