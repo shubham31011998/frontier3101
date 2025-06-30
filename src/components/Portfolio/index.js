@@ -47,10 +47,11 @@ const Portfolio = () => {
                     portfolio.map((port, idx) => {
                         return (
                             <div className="image-box" key={idx}>
-                                <img
+                                {/* <img
                                     src={port.image}
                                     className="portfolio-image"
-                                    alt="portfolio" />
+                                    alt="portfolio" /> */}
+                                    <iframe className="portfolio-image" src={port.url} title={port.description}></iframe>
                                 <div className="content">
                                     <p className="title">{port.name}</p>
                                     <h4 className="description">{port.description}</h4>
