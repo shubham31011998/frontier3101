@@ -20,6 +20,11 @@ const Portfolio = () => {
         }
     });
     const portfolio = [{
+        image: "https://subscribemyai.vercel.app/login",
+        name: "SubscribeMyAi",
+        description: "This is platform for content creator to create their AI Agent and monetize it.",
+        url: "https://subscribemyai.vercel.app/login"
+    },{
         image: "https://media-exp1.licdn.com/dms/image/C4D22AQHTSF1t5u-R6A/feedshare-shrink_2048_1536/0/1650071589429?e=1660780800&v=beta&t=3PVTZJRxX4BH7sekxEsr5-FMlbNDby-At5ITkKFieiU",
         name: "Expense tracker",
         description: "This is an advance expense tracker application in which you can add, delete, and search for all of your expenses.",
