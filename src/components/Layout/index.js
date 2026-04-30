@@ -7,7 +7,7 @@ import './index.scss'
 const Layout = () => {
   return (
     <div className="App">
-      <YouTubeEmbed />
+      {/* <YouTubeEmbed /> */}
       <Sidebar />
       <FloatingBar />
       <div className="page">
