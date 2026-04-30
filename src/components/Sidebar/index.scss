@@ -1,10 +1,13 @@
 .nav-bar {
   width: 60px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  z-index: 3;
-  min-height: 500px;
+    height: calc(100% - 30px);
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    min-height: 500px;
+    margin: 15px;
+    box-sizing: border-box;
+    border-radius: 10px;
 
   .logo {
     display: block;
