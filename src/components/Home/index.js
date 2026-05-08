@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Loader from 'react-loaders'
 import AnimatedLetters from '../AnimatedLetters'
 import LogoTitle from '../../assets/images/logo-s.png'
+import selfImage from '../../assets/images/self.png'
 import './index.scss'
 
 const Home = () => {
@@ -75,7 +76,18 @@ const Home = () => {
             CONTACT ME
           </Link>
         </div>
-        {/* <Logo /> */}
+          <img
+              src={selfImage}
+              alt="JavaScript Developer Name, Web Developer Name"
+              style={{
+                maxWidth: '50vw',
+                top: '-42px',
+                position: 'absolute',
+                zIndex: -1,
+                right: 0,
+                height: '100vh',
+              }}
+            />
       </div>
 
       <Loader type="pacman" />
