@@ -1,0 +1,220 @@
+/* Diwali festive layer — loaded only while the festival window is active. */
+
+.diwali {
+  pointer-events: none;
+}
+
+.diwali-fireworks {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Marigold toran hanging under the nav; scrolls away with the page. */
+.diwali-garland {
+  position: absolute;
+  top: 72px;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  overflow: hidden;
+  height: 130px;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
+  @media (max-width: 900px) {
+    top: 64px;
+    height: 100px;
+  }
+}
+.diwali-garland__row {
+  display: flex;
+  width: max-content;
+  @media (max-width: 900px) {
+    transform: scale(0.75);
+    transform-origin: top left;
+  }
+}
+
+.diwali-swag {
+  position: relative;
+  flex: none;
+  height: 64px;
+}
+
+.diwali-strand {
+  position: absolute;
+  top: 48px;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+  translate: -50% 0;
+  animation: diwali-sway 3.2s ease-in-out infinite alternate;
+}
+.diwali-strand__string {
+  width: 2px;
+  height: 34px;
+  background: repeating-linear-gradient(#ffb703 0 5px, #f77f00 5px 10px);
+}
+
+@keyframes diwali-sway {
+  from {
+    rotate: -6deg;
+  }
+  to {
+    rotate: 6deg;
+  }
+}
+
+/* Diyas glowing in the bottom-left corner. */
+.diwali-diyas {
+  position: fixed;
+  left: 14px;
+  bottom: 12px;
+  z-index: 46;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  filter: drop-shadow(0 0 14px rgba(255, 159, 28, 0.55));
+}
+.diwali-diya {
+  width: 52px;
+  height: 46px;
+  overflow: visible;
+  &:nth-child(2) {
+    width: 62px;
+    height: 54px;
+  }
+  @media (max-width: 600px) {
+    width: 36px;
+    height: 32px;
+    &:nth-child(2) {
+      width: 42px;
+      height: 37px;
+    }
+  }
+}
+.diwali-diya__flame {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: diwali-flicker 0.9s ease-in-out infinite alternate;
+}
+@keyframes diwali-flicker {
+  0% {
+    transform: scale(1, 1) rotate(-2deg);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(0.92, 1.08) rotate(2deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.04, 0.94) rotate(-1deg);
+    opacity: 0.88;
+  }
+}
+
+/* Clickable gift in the bottom-right corner. */
+.diwali-gift-wrap {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 47;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+.diwali-gift {
+  pointer-events: auto;
+  width: 64px;
+  height: 64px;
+  padding: 4px;
+  border: 0;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--bg) 60%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 0 0 1px rgba(255, 209, 102, 0.5), 0 10px 30px -8px rgba(255, 159, 28, 0.6);
+  cursor: pointer;
+  animation: diwali-wiggle 2.6s ease-in-out infinite;
+  svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  &:focus-visible {
+    outline: 2px solid #ffd166;
+    outline-offset: 3px;
+  }
+  &.is-open {
+    animation: none;
+  }
+  @media (max-width: 600px) {
+    width: 54px;
+    height: 54px;
+  }
+}
+.diwali-gift__lid {
+  transition: transform 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  .is-open & {
+    transform: translate(-6px, -14px) rotate(-24deg);
+  }
+}
+@keyframes diwali-wiggle {
+  0%,
+  70%,
+  100% {
+    rotate: 0deg;
+  }
+  76% {
+    rotate: -9deg;
+  }
+  82% {
+    rotate: 8deg;
+  }
+  88% {
+    rotate: -5deg;
+  }
+  94% {
+    rotate: 3deg;
+  }
+}
+
+.diwali-toast {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: min(280px, calc(100vw - 32px));
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7c2d12, #c2410c 55%, #b5179e);
+  color: #fff7e6;
+  font-size: 14px;
+  line-height: 1.4;
+  box-shadow: 0 16px 40px -12px rgba(194, 65, 12, 0.7);
+  animation: diwali-pop 0.4s cubic-bezier(0.3, 1.5, 0.5, 1);
+  strong {
+    font-size: 16px;
+  }
+}
+@keyframes diwali-pop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diwali-strand,
+  .diwali-diya__flame,
+  .diwali-gift {
+    animation: none;
+  }
+}
