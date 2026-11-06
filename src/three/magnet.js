@@ -12,8 +12,8 @@ import { useEffect, useSyncExternalStore } from 'react'
 // deviation from it is the magnet. While the gyroscope says the phone itself is
 // turning, the baseline follows the sensor so rotation isn't mistaken for a magnet.
 
-const RAW_RANGE = 120 // µT of deviation that counts as "magnet touching the phone"
-const COMPASS_RANGE = 70 // degrees of unexplained heading swing for full strength
+const RAW_RANGE = 80 // µT of deviation that counts as "magnet touching the phone"
+const COMPASS_RANGE = 40 // degrees of unexplained heading swing for full strength
 const ROTATING = 25 // deg/s of gyro rotation above which changes are the phone turning
 const BASELINE_TAU = 6 // seconds for the baseline to absorb a magnet left in place
 const NO_DATA_TIMEOUT = 1500
@@ -187,7 +187,7 @@ export const disableMagnet = () => {
 
 const ATTRACT_SELECTOR =
   'h1, h2, h3, h4, h5, h6, p, a, button, li, label, blockquote, figcaption, input, textarea, select'
-const MAX_PULL = 56 // px an element can travel toward the magnet
+const MAX_PULL = 150 // px an element can travel toward the magnet
 const RESCAN_MS = 1000
 
 // Outermost text/button elements only, so nested ones aren't pulled twice.
@@ -222,7 +222,7 @@ export const useMagnetAttraction = () => {
       // Where the magnet is, in screen space.
       const px = W / 2 + magnet.x * W * 0.5
       const py = H / 2 + magnet.y * H * 0.5
-      const reach = Math.max(W, H) * 0.8
+      const reach = Math.max(W, H) * 1.2
 
       // Read every rect first, then write, to avoid layout thrashing.
       const plan = []
@@ -233,10 +233,10 @@ export const useMagnetAttraction = () => {
         const dx = px - (r.left + r.width / 2 - ox)
         const dy = py - (r.top + r.height / 2 - oy)
         const dist = Math.hypot(dx, dy) || 1
-        const pull = Math.min(dist * 0.5, (magnet.strength * MAX_PULL) / (1 + (dist / reach) ** 2))
+        const pull = Math.min(dist * 0.85, (Math.sqrt(magnet.strength) * MAX_PULL) / (1 + (dist / reach) ** 2))
         const tx = (dx / dist) * pull
         const ty = (dy / dist) * pull
-        plan.push([el, ox + (tx - ox) * 0.18, oy + (ty - oy) * 0.18])
+        plan.push([el, ox + (tx - ox) * 0.25, oy + (ty - oy) * 0.25])
       }
       for (const [el, x, y] of plan) {
         offsets.set(el, [x, y])

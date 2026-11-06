@@ -14,6 +14,7 @@ import Contact from './sections/Contact'
 import { ThemeContext, useRevealAll, useThemeState } from './hooks'
 import { profile } from './data/resume'
 import { useMagnetAttraction } from './three/magnet'
+import Festive from './festive'
 import './styles/main.scss'
 import './styles/_studio.scss'
 
@@ -49,6 +50,7 @@ function App() {
         Skip to content
       </a>
       <Cursor />
+      <Festive />
       <Progress />
       <Nav />
       <main>
