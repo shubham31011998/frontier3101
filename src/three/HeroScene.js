@@ -4,6 +4,7 @@ import { Environment, Float, Lightformer, MeshDistortMaterial, Sparkles } from '
 import * as THREE from 'three'
 import SceneShell from './SceneShell'
 import { useReducedMotion, useTheme } from '../hooks'
+import { magnet } from './magnet'
 
 const PALETTES = {
   dark: { core: '#7c5cff', glow: '#22d3ee', ring: '#a3ff5c', dust: '#a5b4fc', node: '#e9ecf5' },
@@ -27,8 +28,10 @@ const usePointer = () => {
 }
 
 const Core = ({ colors, reduced }) => {
+  const root = useRef()
   const mesh = useRef()
   const shell = useRef()
+  const seenTaps = useRef(magnet.taps)
   const mat = useRef()
   const pulse = useRef(0)
   const [hovered, setHovered] = useState(false)
@@ -43,12 +46,23 @@ const Core = ({ colors, reduced }) => {
   useEffect(() => () => (document.body.style.cursor = ''), [])
 
   useFrame((_, dt) => {
+    // A quick magnet flick behaves like a click.
+    if (magnet.taps !== seenTaps.current) {
+      seenTaps.current = magnet.taps
+      pulse.current = 1
+      setHueShift((h) => (h + 0.13) % 1)
+    }
+    const m = magnet.strength
     pulse.current = damp(pulse.current, 0, 2.2, dt)
     if (mat.current) {
-      const target = (hovered ? 0.5 : 0.32) + pulse.current * 0.55
+      const target = (hovered ? 0.5 : 0.32) + pulse.current * 0.55 + m * 0.45
       mat.current.distort = damp(mat.current.distort, target, 4, dt)
+      mat.current.emissiveIntensity = damp(mat.current.emissiveIntensity, 0.18 + m * 0.7, 6, dt)
     }
-    mesh.current.scale.setScalar(1 + pulse.current * 0.22)
+    // The core leans toward the magnet.
+    root.current.position.x = damp(root.current.position.x, magnet.x * 0.45, 5, dt)
+    root.current.position.y = damp(root.current.position.y, magnet.y * 0.45, 5, dt)
+    mesh.current.scale.setScalar(1 + pulse.current * 0.22 + m * 0.12)
     shell.current.scale.setScalar(1.85 + pulse.current * 0.6)
     shell.current.material.opacity = 0.16 + pulse.current * 0.5
     if (!reduced) {
@@ -59,7 +73,7 @@ const Core = ({ colors, reduced }) => {
   })
 
   return (
-    <group>
+    <group ref={root}>
       <mesh
         ref={mesh}
         onClick={(e) => {
@@ -165,9 +179,12 @@ const Rig = ({ children, pointer, reduced }) => {
   const group = useRef()
   useFrame((_, dt) => {
     if (reduced) return
-    group.current.rotation.y = damp(group.current.rotation.y, pointer.current.x * 0.4, 2.5, dt)
-    group.current.rotation.x = damp(group.current.rotation.x, -pointer.current.y * 0.25, 2.5, dt)
-    group.current.position.x = damp(group.current.position.x, pointer.current.x * 0.15, 2.5, dt)
+    // Pointer on desktop; on phones in magnetic mode the magnet steers the whole system.
+    const x = pointer.current.x * 0.4 + magnet.x * 0.9
+    const y = pointer.current.y * 0.25 + magnet.y * 0.6
+    group.current.rotation.y = damp(group.current.rotation.y, x, 2.5, dt)
+    group.current.rotation.x = damp(group.current.rotation.x, -y, 2.5, dt)
+    group.current.position.x = damp(group.current.position.x, pointer.current.x * 0.15 + magnet.x * 0.3, 2.5, dt)
   })
   return <group ref={group}>{children}</group>
 }
