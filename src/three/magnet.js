@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from 'react'
+import { useEffect, useSyncExternalStore } from 'react'
 
 // Detects a nearby magnet from phone sensors and exposes it to the 3D scene.
 //
@@ -181,4 +181,74 @@ export const disableMagnet = () => {
   gotData()
   publish(0, 0, 0)
   setSnap({ status: 'off', source: null })
+}
+
+// ---- DOM attraction: text and buttons drift toward the magnet ----
+
+const ATTRACT_SELECTOR =
+  'h1, h2, h3, h4, h5, h6, p, a, button, li, label, blockquote, figcaption, input, textarea, select'
+const MAX_PULL = 56 // px an element can travel toward the magnet
+const RESCAN_MS = 1000
+
+// Outermost text/button elements only, so nested ones aren't pulled twice.
+// Anything that holds a WebGL canvas (the 3D scenes) is left alone.
+const findTargets = () => {
+  const all = new Set(document.querySelectorAll(ATTRACT_SELECTOR))
+  return [...all].filter((el) => {
+    if (el.querySelector('canvas') || el.closest('canvas')) return false
+    for (let p = el.parentElement; p; p = p.parentElement) if (all.has(p)) return false
+    return true
+  })
+}
+
+export const useMagnetAttraction = () => {
+  const { status } = useMagnetStatus()
+  const on = status === 'on'
+
+  useEffect(() => {
+    if (!on) return
+    const offsets = new Map() // element -> [x, y] currently applied
+    let targets = findTargets()
+    let lastScan = performance.now()
+    let raf
+
+    const frame = (now) => {
+      if (now - lastScan > RESCAN_MS) {
+        targets = findTargets()
+        lastScan = now
+      }
+      const W = window.innerWidth
+      const H = window.innerHeight
+      // Where the magnet is, in screen space.
+      const px = W / 2 + magnet.x * W * 0.5
+      const py = H / 2 + magnet.y * H * 0.5
+      const reach = Math.max(W, H) * 0.8
+
+      // Read every rect first, then write, to avoid layout thrashing.
+      const plan = []
+      for (const el of targets) {
+        const r = el.getBoundingClientRect()
+        if (r.bottom < -100 || r.top > H + 100) continue
+        const [ox, oy] = offsets.get(el) || [0, 0]
+        const dx = px - (r.left + r.width / 2 - ox)
+        const dy = py - (r.top + r.height / 2 - oy)
+        const dist = Math.hypot(dx, dy) || 1
+        const pull = Math.min(dist * 0.5, (magnet.strength * MAX_PULL) / (1 + (dist / reach) ** 2))
+        const tx = (dx / dist) * pull
+        const ty = (dy / dist) * pull
+        plan.push([el, ox + (tx - ox) * 0.18, oy + (ty - oy) * 0.18])
+      }
+      for (const [el, x, y] of plan) {
+        offsets.set(el, [x, y])
+        el.style.translate = Math.abs(x) + Math.abs(y) < 0.2 ? '' : `${x.toFixed(1)}px ${y.toFixed(1)}px`
+      }
+      raf = requestAnimationFrame(frame)
+    }
+    raf = requestAnimationFrame(frame)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      offsets.forEach((_, el) => (el.style.translate = ''))
+    }
+  }, [on])
 }
