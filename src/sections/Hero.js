@@ -4,6 +4,7 @@ import { faGithub, faLinkedinIn, faYoutube } from '@fortawesome/free-brands-svg-
 import { faArrowDown, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { profile, roles as ROLES } from '../data/resume'
 import { useReducedMotion } from '../hooks'
+import { canUseMagnet, disableMagnet, enableMagnet, useMagnetStatus } from '../three/magnet'
 
 const HeroScene = lazy(() => import('../three/HeroScene'))
 
@@ -37,9 +38,40 @@ const useTypewriter = (words, reduced) => {
   return text
 }
 
+const MAGNET_HINTS = {
+  off: '✦ tap the core · or try magnetic mode',
+  requesting: 'waiting for sensor permission…',
+  on: '🧲 move a magnet around your phone · flick it in to pulse',
+  denied: 'motion access was denied: allow it in browser settings',
+  unsupported: 'this browser does not expose motion sensors',
+}
+
+// Phones only: lets the hero model follow a real magnet held near the device.
+const MagnetToggle = () => {
+  const { status } = useMagnetStatus()
+  const on = status === 'on'
+  return (
+    <div className="magnet-toggle">
+      <button
+        type="button"
+        className={`btn btn--small ${on ? 'btn--primary' : 'btn--ghost'}`}
+        aria-pressed={on}
+        disabled={status === 'requesting'}
+        onClick={on ? disableMagnet : enableMagnet}
+      >
+        🧲 Magnetic mode {on ? 'on' : 'off'}
+      </button>
+      <p className="hint mono" aria-live="polite">
+        {MAGNET_HINTS[status]}
+      </p>
+    </div>
+  )
+}
+
 const Hero = () => {
   const reduced = useReducedMotion()
   const role = useTypewriter(ROLES, reduced)
+  const [magnetCapable] = useState(() => !reduced && canUseMagnet())
 
   return (
     <section className="hero" id="top">
@@ -92,9 +124,13 @@ const Hero = () => {
           <Suspense fallback={<div className="orb-fallback" aria-hidden="true" />}>
             <HeroScene className="hero__canvas" />
           </Suspense>
-          <p className="hint mono" aria-hidden="true">
-            ✦ click the core · move your cursor
-          </p>
+          {magnetCapable ? (
+            <MagnetToggle />
+          ) : (
+            <p className="hint mono" aria-hidden="true">
+              ✦ click the core · move your cursor
+            </p>
+          )}
         </div>
       </div>
 
