@@ -13,6 +13,7 @@ import Work from './sections/Work'
 import Contact from './sections/Contact'
 import { ThemeContext, useRevealAll, useThemeState } from './hooks'
 import { profile } from './data/resume'
+import { useMagnetAttraction } from './three/magnet'
 import './styles/main.scss'
 import './styles/_studio.scss'
 
@@ -23,6 +24,7 @@ function App() {
   const themeState = useThemeState()
   const { pathname } = useLocation()
   useRevealAll()
+  useMagnetAttraction()
 
   // Disable the context menu, except in form fields so pasting still works.
   useEffect(() => {
